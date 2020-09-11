@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+    Edgar Antonio Domínguez Ramírez
+    Curso Udemy ESP32
+    2020
+ -->
+
+<resources>
+    <color name="Electronica117">#ff414d</color>
+    <color name="Gradient_1">#42A5F5</color>
+    <color name="Gradient_2">#ff414d</color>
+    <color name="Negro">#ff000000</color>
+    <color name="Sombra">#AA000000</color>
+
+
+</resources>
