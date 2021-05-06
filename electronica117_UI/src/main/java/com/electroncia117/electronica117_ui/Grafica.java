@@ -80,9 +80,7 @@ public class Grafica extends View {
         width = getWidth();
         height = getHeight();
         InitPaints();
-        /*************************************
-         * Redimensionar variables X y Y
-         */
+
         if (setPath){
             myPath.moveTo(0, 0);
             myPath.moveTo(0, height);
@@ -122,11 +120,12 @@ public class Grafica extends View {
                     myPath.moveTo(0, Height-y);
                     t = 0;
                 }
+                canvas.drawPath(myPath, LinePaint);
             break;
 
             case 1:
                 int valorX;
-                for(valorX=0; valorX<myListOfValues.size(); valorX++, t++){
+                for(valorX=0, t=0; valorX<myListOfValues.size(); valorX++, t++){
                     myPath.lineTo(t, Height - RedimY(myListOfValues.get(valorX)));
                     if(t>=MaxValueX){
                         myPath.reset();
@@ -142,6 +141,7 @@ public class Grafica extends View {
                         canvas.drawText(redondear(myListOfValues.get(myListOfValues.size()-1)) + " " +text, t+15, Height-RedimY(myListOfValues.get(myListOfValues.size()-1))+20,TexPaint);
                     }
                 }
+                canvas.drawPath(myPath, LinePaint);
             break;
 
             case 117:
@@ -149,13 +149,6 @@ public class Grafica extends View {
                 myPath.moveTo(-10, Height);
                 break;
         }
-
-
-
-        canvas.drawPath(myPath, LinePaint);
-
-
-
 
     }
 
