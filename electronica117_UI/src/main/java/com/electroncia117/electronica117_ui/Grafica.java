@@ -12,6 +12,9 @@ import android.view.View;
 
 import androidx.annotation.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  Edgar Antonio Domínguez Ramírez
  Curso Udemy ESP32
@@ -42,7 +45,7 @@ public class Grafica extends View {
     private int textSize = 50;
     private float value;
     private boolean setPath = true;
-    private boolean enabledBorder = true;
+    private boolean enabledBorder = false;
     private int borderColor = getResources().getColor(R.color.Negro);
     private int borderSize = 20;
     private int colorGradient_1 = getResources().getColor(R.color.Gradient_1);
@@ -51,6 +54,10 @@ public class Grafica extends View {
     private boolean Gradiente = true;
     private int fondoColor = getResources().getColor(R.color.Electronica117);
     private int lineSize = 5;
+    private byte tipoDeValores;
+    private List<Float> myListOfValues = new ArrayList<Float>();
+    private int Height;
+
 
     public Grafica(Context context) {
         super(context);
@@ -73,10 +80,17 @@ public class Grafica extends View {
         width = getWidth();
         height = getHeight();
         InitPaints();
+        /*************************************
+         * Redimensionar variables X y Y
+         */
         if (setPath){
-            myPath.moveTo(-100, 0);
-            myPath.moveTo(-100, height/2);
+            myPath.moveTo(0, 0);
+            myPath.moveTo(0, height);
             setPath = false;
+        }
+
+        if (enabledBorder){
+            canvas.drawRect(0,0,width,height,BorderPaint);
         }
 
         if(Gradiente){
@@ -85,51 +99,73 @@ public class Grafica extends View {
         }
         canvas.drawRect(0,0,width,height,FondoPaint);
 
-        if(t<=MaxValueX){
-            if (center){
-                canvas.drawLine(0, height/2, width, height/2, CenterLinePaint);
-                myPath.lineTo(x,height/2-y);
-                canvas.drawCircle(x, height/2-y, lineSize+1, DotPaint);
+        Height = center?height/2:height;
+
+        switch (tipoDeValores){
+            case 0:
+                y = RedimY(y);
+                x = RedimX(t);
+
+                myPath.lineTo(x,Height-y);
+                canvas.drawCircle(x, Height-y, lineSize+1, DotPaint);
                 if (enabledValue){
                     if (staticText){
                         canvas.drawText(redondear(value) + " " +text, 5, textSize+5,TexPaint);
                     }else{
-                        canvas.drawText(redondear(value) + " " +text, x+15, height/2-y+20,TexPaint);
+                        canvas.drawText(redondear(value) + " " +text, x+15, Height-y+20,TexPaint);
                     }
                 }
 
-            }else{
-                myPath.lineTo(x,height-y);
-                canvas.drawCircle(x, height-y, lineSize+1, DotPaint);
-                if (enabledValue){
-                    if (staticText){
-                        canvas.drawText(redondear(value) + " " +text, 5, textSize+5,TexPaint);
-                    }else{
-                        canvas.drawText(redondear(value) + " " +text, x+15, height-y+20,TexPaint);
+                t++;
+                if(t>=MaxValueX){
+                    myPath.reset();
+                    myPath.moveTo(0, Height-y);
+                    t = 0;
+                }
+            break;
+
+            case 1:
+                int valorX;
+                for(valorX=0; valorX<myListOfValues.size(); valorX++, t++){
+                    myPath.lineTo(t, Height - RedimY(myListOfValues.get(valorX)));
+                    if(t>=MaxValueX){
+                        myPath.reset();
+                        myPath.moveTo(0, Height - RedimY(myListOfValues.get(valorX)));
+                        t = 0;
                     }
                 }
-            }
-        }else{
-            myPath.reset();
-            if (center){
-                myPath.moveTo(-100, height/2);
-            }else{
-                myPath.moveTo(-100, height);
-            }
-            t = 0;
+                canvas.drawCircle(t-1, Height-RedimY(myListOfValues.get(myListOfValues.size()-1)), lineSize+1, DotPaint);
+                if (enabledValue){
+                    if (staticText){
+                        canvas.drawText(redondear(myListOfValues.get(myListOfValues.size()-1)) + " " +text, 5, textSize+5,TexPaint);
+                    }else{
+                        canvas.drawText(redondear(myListOfValues.get(myListOfValues.size()-1)) + " " +text, t+15, Height-RedimY(myListOfValues.get(myListOfValues.size()-1))+20,TexPaint);
+                    }
+                }
+            break;
         }
+
+
+
         canvas.drawPath(myPath, LinePaint);
 
-        if (enabledBorder){
-            canvas.drawRect(0,0,width,height,BorderPaint);
-        }
+
+
+
     }
 
-    public void setValue(float y){
-        this.y = RedimY(y);
-        this.value = y;
-        this.x = RedimX(t);
-        t++;
+
+    public void setValue(float Y){
+        tipoDeValores = 0;
+        this.y = Y;
+        this.value = Y;
+        invalidate();
+    }
+
+
+    public void setValue(List<Float> Values){
+        tipoDeValores = 1;
+        this.myListOfValues = Values;
         invalidate();
     }
 
@@ -185,7 +221,7 @@ public class Grafica extends View {
     }
 
     private float RedimY(float valor){
-        return ((height*valor)/MaxValueY);
+        return ((Height*valor)/MaxValueY);
     }
 
     private float RedimX(float valor){
@@ -202,8 +238,8 @@ public class Grafica extends View {
         myPath.reset();
     }
 
-    public void setUnits(String units) {
-        this.text = units;
+    public void setText(String text) {
+        this.text = text;
     }
 
     public void valueEnabled(boolean valueEnabled) {
