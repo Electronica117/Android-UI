@@ -125,7 +125,8 @@ public class Grafica extends View {
 
             case 1:
                 int valorX;
-                for(valorX=0, t=0; valorX<myListOfValues.size(); valorX++, t++){
+                t=0;
+                for(valorX=0; valorX<myListOfValues.size(); valorX++, t++){
                     myPath.lineTo(t, Height - RedimY(myListOfValues.get(valorX)));
                     if(t>=MaxValueX){
                         myPath.reset();
