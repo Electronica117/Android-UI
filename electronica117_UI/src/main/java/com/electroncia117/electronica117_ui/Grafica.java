@@ -143,6 +143,11 @@ public class Grafica extends View {
                     }
                 }
             break;
+
+            case 117:
+                myPath.reset();
+                myPath.moveTo(-10, Height);
+                break;
         }
 
 
@@ -166,6 +171,11 @@ public class Grafica extends View {
     public void setValue(List<Float> Values){
         tipoDeValores = 1;
         this.myListOfValues = Values;
+        invalidate();
+    }
+
+    public void reset(){
+        tipoDeValores = 117;
         invalidate();
     }
 
