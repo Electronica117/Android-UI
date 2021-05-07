@@ -113,21 +113,21 @@ public class Grafica extends View {
                         canvas.drawText(redondear(value) + " " +text, x+15, Height-y+20,TexPaint);
                     }
                 }
+                canvas.drawPath(myPath, LinePaint);
 
                 t++;
-                if(t>=MaxValueX){
+                if(t>MaxValueX){
                     myPath.reset();
                     myPath.moveTo(0, Height-y);
                     t = 0;
                 }
-                canvas.drawPath(myPath, LinePaint);
+
             break;
 
             case 1:
                 int valorX;
-                t=0;
-                for(valorX=0; valorX<myListOfValues.size(); valorX++, t++){
-                    myPath.lineTo(t, Height - RedimY(myListOfValues.get(valorX)));
+                for(valorX=0, t=0; valorX<myListOfValues.size(); valorX++, t++){
+                    myPath.lineTo(RedimX(t), Height - RedimY(myListOfValues.get(valorX)));
                     if(t>=MaxValueX){
                         myPath.reset();
                         myPath.moveTo(0, Height - RedimY(myListOfValues.get(valorX)));
