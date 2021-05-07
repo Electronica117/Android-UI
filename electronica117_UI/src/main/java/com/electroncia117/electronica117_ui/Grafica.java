@@ -134,12 +134,12 @@ public class Grafica extends View {
                         t = 0;
                     }
                 }
-                canvas.drawCircle(t-1, Height-RedimY(myListOfValues.get(myListOfValues.size()-1)), lineSize+1, DotPaint);
+                canvas.drawCircle(RedimX(t)-1, Height-RedimY(myListOfValues.get(myListOfValues.size()-1)), lineSize+1, DotPaint);
                 if (enabledValue){
                     if (staticText){
                         canvas.drawText(redondear(myListOfValues.get(myListOfValues.size()-1)) + " " +text, 5, textSize+5,TexPaint);
                     }else{
-                        canvas.drawText(redondear(myListOfValues.get(myListOfValues.size()-1)) + " " +text, t+15, Height-RedimY(myListOfValues.get(myListOfValues.size()-1))+20,TexPaint);
+                        canvas.drawText(redondear(myListOfValues.get(myListOfValues.size()-1)) + " " +text, RedimX(t)+15, Height-RedimY(myListOfValues.get(myListOfValues.size()-1))+20,TexPaint);
                     }
                 }
                 canvas.drawPath(myPath, LinePaint);
