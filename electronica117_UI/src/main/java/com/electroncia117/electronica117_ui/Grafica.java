@@ -139,7 +139,7 @@ public class Grafica extends View {
                     if (staticText){
                         canvas.drawText(redondear(myListOfValues.get(myListOfValues.size()-1)) + " " +text, 5, textSize+5,TexPaint);
                     }else{
-                        canvas.drawText(redondear(myListOfValues.get(myListOfValues.size()-1)) + " " +text, RedimX(t)+15, Height-RedimY(myListOfValues.get(myListOfValues.size()-1))+20,TexPaint);
+                        canvas.drawText(redondear(myListOfValues.get(myListOfValues.size()-1)) + " " +text, RedimX(t)+7, Height-RedimY(myListOfValues.get(myListOfValues.size()-1))+20,TexPaint);
                     }
                 }
                 canvas.drawPath(myPath, LinePaint);

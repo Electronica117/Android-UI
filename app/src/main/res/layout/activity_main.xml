@@ -11,12 +11,24 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <com.electroncia117.electronica117_ui.Grafica
-        android:id="@+id/grafica"
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
+    <com.electroncia117.electronica117_ui.IndicadorCircular
+        android:id="@+id/indicadorCircular"
+        android:layout_width="500px"
+        android:layout_height="500px"
+        app:layout_constraintBottom_toTopOf="@+id/indicadorCircular2"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <com.electroncia117.electronica117_ui.IndicadorCircular
+        android:id="@+id/indicadorCircular2"
+        android:layout_width="500px"
+        android:layout_height="500px"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/indicadorCircular" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

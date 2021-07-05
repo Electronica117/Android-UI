@@ -114,7 +114,7 @@ public class IndicadorCircular extends View {
         TextPaint.setShadowLayer(Constantes.desenfoque, Constantes.dx, Constantes.dy, Color.argb(Constantes.Alpha, 0, 0, 0));
         TextPaint.setTypeface(Typeface.create("Ari", Typeface.ITALIC));
 
-        IndicatorPaint.setColor(Color.BLACK);
+        IndicatorPaint.setColor(color);
         IndicatorPaint.setStyle(Paint.Style.FILL);
         IndicatorPaint.setStrokeWidth(3);
     }
